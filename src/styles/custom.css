@@ -1,0 +1,26 @@
+.container {
+	width: min(1024px, 90%);
+}
+
+.especialidades-grid {
+	display: grid;
+	row-gap: 1rem;
+	column-gap: 1rem;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+	grid-template-rows: 1fr 1fr;
+	grid-template-areas:
+		"a b c c"
+		"e f g h";
+}
+
+.conquests-grid {
+	display: grid;
+	row-gap: 2rem;
+	column-gap: 2rem;
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: 1fr 1fr;
+	grid-template-areas:
+		"header header"
+		"a b"
+		"c d";
+}
