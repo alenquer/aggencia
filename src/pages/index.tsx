@@ -15,30 +15,7 @@ import { MdOutlinePersonPin, MdOutlineRocketLaunch } from "react-icons/md";
 import { TfiBarChart } from "react-icons/tfi";
 import { SectionReveal } from "~/components/reveal";
 import { productSans } from "~/shared";
-
-const feedbacks = [
-	{
-		name: "Rosana Pereira",
-		vacation: "Psicóloga",
-		avatar: "/teste.png",
-		description:
-			"Depois de me frustrar com outra agência, encontrei a Aggencia e resolvi dar uma chance. Foi a melhor escolha pro meu negócio, toda semana consigo novos clientes para a minha clínica."
-	},
-	{
-		name: "Rosana Pereira",
-		vacation: "Psicóloga",
-		avatar: "/teste.png",
-		description:
-			"Depois de me frustrar com outra agência, encontrei a Aggencia e resolvi dar uma chance. Foi a melhor escolha pro meu negócio, toda semana consigo novos clientes para a minha clínica."
-	},
-	{
-		name: "Rosana Pereira",
-		vacation: "Psicóloga",
-		avatar: "/teste.png",
-		description:
-			"Depois de me frustrar com outra agência, encontrei a Aggencia e resolvi dar uma chance. Foi a melhor escolha pro meu negócio, toda semana consigo novos clientes para a minha clínica."
-	}
-];
+import { feedbacks } from "~/utils/feedbacks";
 
 const ClientSlide: React.FC<{
 	name: string;
@@ -114,12 +91,12 @@ export default function Home() {
 					name="viewport"
 					content="width=device-width, initial-scale=1"
 				/>
-				<link rel="icon" href="/logo.svg" />
+				<link rel="icon" href="/svgs/logo.svg" />
 				<link
 					rel="preload"
 					as="image"
 					type="image/svg+xml"
-					href="/wave.svg"
+					href="/svgs/wave.svg"
 				/>
 			</Head>
 			<header>
@@ -160,7 +137,6 @@ export default function Home() {
 								Aggencia
 							</h2>
 						</div>
-
 						<div
 							className={clsx(
 								"flex",
@@ -169,50 +145,58 @@ export default function Home() {
 								"gap-8"
 							)}
 						>
-							<p
-								className={clsx(
-									productSans.className,
-									"font-bold",
-									"text-xl",
-									"hover:cursor-pointer",
-									"hover:text-[#FF5100]"
-								)}
-							>
-								Método
-							</p>
-							<p
-								className={clsx(
-									productSans.className,
-									"font-bold",
-									"text-xl",
-									"hover:cursor-pointer",
-									"hover:text-[#FF5100]"
-								)}
-							>
-								Especialidades
-							</p>
-							<p
-								className={clsx(
-									productSans.className,
-									"font-bold",
-									"text-xl",
-									"hover:cursor-pointer",
-									"hover:text-[#FF5100]"
-								)}
-							>
-								Testemunhos
-							</p>
-							<p
-								className={clsx(
-									productSans.className,
-									"font-bold",
-									"text-xl",
-									"hover:cursor-pointer",
-									"hover:text-[#FF5100]"
-								)}
-							>
-								Sobre Nós
-							</p>
+							<a href="#metodos">
+								<p
+									className={clsx(
+										productSans.className,
+										"font-bold",
+										"text-xl",
+										"hover:cursor-pointer",
+										"hover:text-[#FF5100]"
+									)}
+								>
+									Método
+								</p>
+							</a>
+							<a href="#especialidades">
+								<p
+									className={clsx(
+										productSans.className,
+										"font-bold",
+										"text-xl",
+										"hover:cursor-pointer",
+										"hover:text-[#FF5100]"
+									)}
+								>
+									Especialidades
+								</p>
+							</a>
+							<a href="#testemunhos">
+								<p
+									className={clsx(
+										productSans.className,
+										"font-bold",
+										"text-xl",
+										"hover:cursor-pointer",
+										"hover:text-[#FF5100]"
+									)}
+								>
+									Testemunhos
+								</p>
+							</a>
+							<a href="#sobre-nos">
+								<p
+									className={clsx(
+										productSans.className,
+										"font-bold",
+										"text-xl",
+										"hover:cursor-pointer",
+										"hover:text-[#FF5100]"
+									)}
+								>
+									Sobre Nós
+								</p>
+							</a>
 						</div>
 					</div>
 				</nav>
@@ -248,11 +232,13 @@ export default function Home() {
 										productSans.className,
 										"text-5xl",
 										"font-bold",
-										"text-[#FF5100]"
+										"text-black"
 									)}
 								>
 									Venda no Google <br />
-									<span className="text-black">todos os dias.</span>
+									<span className="text-[#FF5100]">
+										todos os dias.
+									</span>
 								</h1>
 								<h2>
 									Tenha uma estratégia de marketing específica para o
@@ -307,7 +293,7 @@ export default function Home() {
 						blurDataURL={"/wave.svg"}
 					/>
 				</div>
-				<SectionReveal>
+				<SectionReveal id="metodos">
 					<div className={clsx("container", "relative", "m-auto")}>
 						<h2
 							className={clsx(
@@ -439,8 +425,8 @@ export default function Home() {
 									</p>
 									<p className={clsx(productSans.className)}>
 										Todo mundo quer ser maior que os concorrentes.
-										Para alcançar isso, os estudamos para ver oque
-										eles fazem que dá certo e oque da errado. Assim,
+										Para alcançar isso, os estudamos para ver o que
+										eles fazem que dá certo e o que da errado. Assim,
 										economizamos seu dinheiro, tempo e esforço para
 										alcançar anúncios vencedores.
 									</p>
@@ -605,7 +591,7 @@ export default function Home() {
 						</div>
 					</div>
 				</SectionReveal>
-				<SectionReveal>
+				<SectionReveal id="especialidades">
 					<div
 						className={clsx("container", "relative", "mt-36", "m-auto")}
 					>
@@ -816,7 +802,7 @@ export default function Home() {
 						</div>
 					</div>
 				</SectionReveal>
-				<SectionReveal>
+				<SectionReveal id="testemunhos">
 					<div
 						className={clsx(
 							"container",
@@ -1085,7 +1071,7 @@ export default function Home() {
 						</aside>
 					</div>
 				</SectionReveal>
-				<SectionReveal>
+				<SectionReveal id="sobre-nos">
 					<div
 						className={clsx(
 							"container",
@@ -1144,7 +1130,7 @@ export default function Home() {
 							>
 								<span className={clsx("inline-block")}>
 									Saber apertar os botões, criar anúncios de qualquer
-									forma e selecionar palavras chaves no achismo é oque
+									forma e selecionar palavras chaves no achismo é o que
 									a maioria dos gestores de tráfego fazem, mas isso não
 									é o suficiente. Na Aggencia trabalhamos de uma forma
 									diferente.
