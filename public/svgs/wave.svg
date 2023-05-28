@@ -1,4 +1,4 @@
-<svg width="1920" height="449" viewBox="0 0 1920 449" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg width="1920" height="449" preserveAspectRatio="none" viewBox="0 0 1920 449" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M-104 168.5L0.958336 205.754C105.917 243.707 315.833 317.166 525.75 299.151C735.667 280.437 945.583 168.5 1155.5 149.786C1365.42 131.771 1575.33 205.229 1785.25 196.484C1995.17 187.739 2205.08 93.2925 2310.04 47.2936L2415 0.594971V448.342H2310.04C2205.08 448.342 1995.17 448.342 1785.25 448.342C1575.33 448.342 1365.42 448.342 1155.5 448.342C945.583 448.342 735.667 448.342 525.75 448.342C315.833 448.342 105.917 448.342 0.958336 448.342H-104V168.5Z" fill="url(#paint0_radial_1_50)"/>
 <defs>
 <radialGradient id="paint0_radial_1_50" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(842.111 -383.54) rotate(90) scale(800.882 4505.72)">

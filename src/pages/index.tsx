@@ -276,7 +276,7 @@ export default function Home() {
 									src="/svgs/meme-content.svg"
 									alt="meme-content"
 									placeholder="blur"
-									blurDataURL={"/meme-content.svg"}
+									blurDataURL={"/svgs/meme-content.svg"}
 									className={clsx("animate-fly")}
 								/>
 							</aside>
@@ -290,7 +290,7 @@ export default function Home() {
 						alt="wave"
 						src="/svgs/wave.svg"
 						placeholder="blur"
-						blurDataURL={"/wave.svg"}
+						blurDataURL={"/svgs/wave.svg"}
 					/>
 				</div>
 				<SectionReveal id="metodos">
@@ -1066,7 +1066,7 @@ export default function Home() {
 								src="/svgs/ship.svg"
 								alt="ship-content"
 								placeholder="blur"
-								blurDataURL={"/ship.svg"}
+								blurDataURL={"/svgs/ship.svg"}
 							/>
 						</aside>
 					</div>
@@ -1094,7 +1094,7 @@ export default function Home() {
 								src="/svgs/why.svg"
 								alt="why-content"
 								placeholder="blur"
-								blurDataURL={"/why.svg"}
+								blurDataURL={"/svgs/why.svg"}
 							/>
 						</aside>
 						<div className={clsx("flex", "flex-col", "w-[36rem]")}>
