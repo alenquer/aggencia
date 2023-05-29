@@ -474,14 +474,16 @@ export default function Home() {
 									"h-48"
 								)}
 							>
-								<Image
-									alt="promoção"
-									width={36}
-									height={36}
-									src={"/svgs/promotion.svg"}
-									color="#FF5100"
-									className={clsx("w-auto", "h-auto")}
-								/>
+								<div
+									className={clsx("relative", "w-[36px]", "h-[36px]")}
+								>
+									<Image
+										fill
+										alt="promoção"
+										src={"/svgs/promotion.svg"}
+										color="#FF5100"
+									/>
+								</div>
 								<p
 									className={clsx(
 										hankenGrotesk.className,
@@ -508,14 +510,16 @@ export default function Home() {
 									"h-48"
 								)}
 							>
-								<Image
-									alt="desenvolvimento de sites"
-									width={36}
-									height={36}
-									src={"/svgs/code.svg"}
-									color="#FF5100"
-									className={clsx("w-auto", "h-auto")}
-								/>
+								<div
+									className={clsx("relative", "w-[36px]", "h-[36px]")}
+								>
+									<Image
+										alt="desenvolvimento de sites"
+										fill
+										src={"/svgs/code.svg"}
+										color="#FF5100"
+									/>
+								</div>
 								<p
 									className={clsx(
 										hankenGrotesk.className,
@@ -591,14 +595,16 @@ export default function Home() {
 									"h-48"
 								)}
 							>
-								<Image
-									alt="elaboração de copys"
-									width={36}
-									height={36}
-									src={"/svgs/copy.svg"}
-									color="#FF5100"
-									className={clsx("w-auto", "h-auto")}
-								/>
+								<div
+									className={clsx("relative", "w-[36px]", "h-[36px]")}
+								>
+									<Image
+										alt="elaboração de copys"
+										fill
+										src={"/svgs/copy.svg"}
+										color="#FF5100"
+									/>
+								</div>
 								<p
 									className={clsx(
 										hankenGrotesk.className,
@@ -625,14 +631,17 @@ export default function Home() {
 									"h-48"
 								)}
 							>
-								<Image
-									alt="crescimento de negócio"
-									width={36}
-									height={36}
-									src={"/svgs/growth.svg"}
-									color="#FF5100"
-									className={clsx("w-auto", "h-auto")}
-								/>
+								<div
+									className={clsx("relative", "w-[36px]", "h-[36px]")}
+								>
+									<Image
+										alt="crescimento de negócio"
+										fill
+										src={"/svgs/growth.svg"}
+										color="#FF5100"
+									/>
+								</div>
+
 								<p
 									className={clsx(
 										hankenGrotesk.className,
@@ -659,14 +668,16 @@ export default function Home() {
 									"h-48"
 								)}
 							>
-								<Image
-									alt="estudo de persona"
-									width={36}
-									height={36}
-									src={"/svgs/writer.svg"}
-									color="#FF5100"
-									className={clsx("w-auto", "h-auto")}
-								/>
+								<div
+									className={clsx("relative", "w-[36px]", "h-[36px]")}
+								>
+									<Image
+										alt="estudo de persona"
+										fill
+										src={"/svgs/writer.svg"}
+										color="#FF5100"
+									/>
+								</div>
 								<p
 									className={clsx(
 										hankenGrotesk.className,
@@ -693,14 +704,16 @@ export default function Home() {
 									"h-48"
 								)}
 							>
-								<Image
-									alt="alavancar vendas"
-									width={36}
-									height={36}
-									src={"/svgs/rocket.svg"}
-									color="#FF5100"
-									className={clsx("w-auto", "h-auto")}
-								/>
+								<div
+									className={clsx("relative", "w-[36px]", "h-[36px]")}
+								>
+									<Image
+										alt="alavancar vendas"
+										fill
+										src={"/svgs/rocket.svg"}
+										color="#FF5100"
+									/>
+								</div>
 								<p
 									className={clsx(
 										hankenGrotesk.className,
