@@ -24,7 +24,7 @@ export function AnimatedCounter({ from, to, ...rest }: IProps) {
 
 	// while in view, animate the count
 	useEffect(() => {
-		if (inView) animate(count, to, { duration: 12 });
+		if (inView) animate(count, to, { duration: 3 });
 	}, [count, inView, to]);
 
 	return (

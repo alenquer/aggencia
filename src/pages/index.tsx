@@ -904,7 +904,7 @@ export default function Home() {
 										"text-[#FF5100]",
 										"before:content-['R$']",
 										"before:pr-2",
-										"after:content-['+']"
+										"after:content-['K+']"
 									)}
 								/>
 								<p
