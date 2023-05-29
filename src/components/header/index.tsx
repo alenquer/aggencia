@@ -24,11 +24,11 @@ const HeaderItem: React.FC<{
 					"rounded-lg",
 					"cursor-pointer",
 					"bg-primary",
-					"xl:bg-transparent",
+					"lg:bg-transparent",
 					"text-md",
-					"xl:w-auto",
-					"xl:py-0",
-					"xl:px-0",
+					"lg:w-auto",
+					"lg:py-0",
+					"lg:px-0",
 					"hover:opacity-50",
 					"lg:hover:opacity-100"
 				)}
@@ -50,9 +50,9 @@ export const Header: React.FC = () => {
 
 	const onScroll = useCallback(() => {
 		if (scrollY > 0) {
-			navRef.current?.classList.add("scroll");
+			navRef.current?.classList.add("scroll-page");
 		} else {
-			navRef.current?.classList.remove("scroll");
+			navRef.current?.classList.remove("scroll-page");
 		}
 	}, []);
 
@@ -76,7 +76,7 @@ export const Header: React.FC = () => {
 		>
 			<div
 				className={clsx(
-					"container",
+					"container-content-limit",
 					"relative",
 					"flex",
 					"flex-col",
@@ -84,8 +84,7 @@ export const Header: React.FC = () => {
 					"lg:justify-between",
 					"lg:flex-row",
 					"lg:items-center",
-					"h-full",
-					"w-full"
+					"h-full"
 				)}
 			>
 				<div className={clsx("flex", "items-center", "justify-between")}>
@@ -123,7 +122,7 @@ export const Header: React.FC = () => {
 						className={clsx(
 							"cursor-pointer",
 							"text-black",
-							"xl:hidden",
+							"lg:hidden",
 							"hover:opacity-50"
 						)}
 					/>
@@ -138,37 +137,37 @@ export const Header: React.FC = () => {
 						"mt-4",
 						//"bg-white",
 						"rounded-lg",
-						"xl:flex",
-						"xl:flex-row",
-						"xl:gap-6",
-						"xl:mt-0"
+						"lg:flex",
+						"lg:flex-row",
+						"lg:gap-6",
+						"lg:mt-0"
 					)}
 				>
 					<a
 						href="#metodos"
 						onClick={openMenu}
-						className={clsx("w-full", "xl:w-auto")}
+						className={clsx("w-full", "lg:w-auto")}
 					>
 						<HeaderItem title="Métodos" />
 					</a>
 					<a
 						href="#especialidades"
 						onClick={openMenu}
-						className={clsx("w-full", "xl:w-auto")}
+						className={clsx("w-full", "lg:w-auto")}
 					>
 						<HeaderItem title="Especialidades" />
 					</a>
 					<a
 						href="#testemunhos"
 						onClick={openMenu}
-						className={clsx("w-full", "xl:w-auto")}
+						className={clsx("w-full", "lg:w-auto")}
 					>
 						<HeaderItem title="Testemunhos" />
 					</a>
 					<a
 						href="#sobre-nos"
 						onClick={openMenu}
-						className={clsx("w-full", "xl:w-auto")}
+						className={clsx("w-full", "lg:w-auto")}
 					>
 						<HeaderItem title="Sobre Nós" />
 					</a>

@@ -4,6 +4,7 @@ declare global {
 			NEXT_PUBLIC_WHATSAPP: string;
 			NEXT_PUBLIC_INSTAGRAM: string;
 			NEXT_PUBLIC_FACEBOOK: string;
+			NEXT_PUBLIC_GTAG: string;
 		}
 	}
 }

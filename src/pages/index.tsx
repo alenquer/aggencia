@@ -144,18 +144,13 @@ const ClientSlide: React.FC<{
 			)}
 		>
 			<div className={clsx("flex", "flex-row", "items-center", "gap-4")}>
-				<div
-					className={clsx(
-						"relative",
-						"w-16",
-						"h-16",
-						"rounded-full",
-						"bg-[#eee]",
-						"overflow-hidden"
-					)}
-				>
-					<Image fill src={avatar} alt={name} />
-				</div>
+				<Image
+					width={64}
+					height={64}
+					src={avatar}
+					alt={name}
+					className={clsx("relative", "rounded-full", "bg-[#eee]")}
+				/>
 				<div>
 					<strong
 						className={clsx(
@@ -229,7 +224,12 @@ export default function Home() {
 					name="viewport"
 					content="width=device-width, initial-scale=1"
 				/>
-				<link rel="icon" href="/svgs/logo.svg" />
+				<link
+					rel="icon"
+					as="image"
+					type="image/svg+xml"
+					href="/svgs/logo.svg"
+				/>
 				<link
 					rel="preload"
 					as="image"
@@ -244,7 +244,7 @@ export default function Home() {
 				<section>
 					<div
 						className={clsx(
-							"container",
+							"container-content-limit",
 							"flex",
 							"flex-row",
 							"justify-between",
@@ -372,7 +372,13 @@ export default function Home() {
 					/>
 				</div>
 				<SectionReveal id="metodos">
-					<div className={clsx("container", "relative", "m-auto")}>
+					<div
+						className={clsx(
+							"container-content-limit",
+							"relative",
+							"m-auto"
+						)}
+					>
 						<h2
 							className={clsx(
 								productSans.className,
@@ -446,7 +452,7 @@ export default function Home() {
 				<SectionReveal id="especialidades">
 					<div
 						className={clsx(
-							"container",
+							"container-content-limit",
 							"relative",
 							"mt-24",
 							"lg:mt-36",
@@ -473,7 +479,8 @@ export default function Home() {
 									width={36}
 									height={36}
 									src={"/svgs/promotion.svg"}
-									className={clsx("text-[#FF5100]")}
+									color="#FF5100"
+									className={clsx("w-auto", "h-auto")}
 								/>
 								<p
 									className={clsx(
@@ -506,7 +513,8 @@ export default function Home() {
 									width={36}
 									height={36}
 									src={"/svgs/code.svg"}
-									className={clsx("text-[#FF5100]")}
+									color="#FF5100"
+									className={clsx("w-auto", "h-auto")}
 								/>
 								<p
 									className={clsx(
@@ -588,7 +596,8 @@ export default function Home() {
 									width={36}
 									height={36}
 									src={"/svgs/copy.svg"}
-									className={clsx("text-[#FF5100]")}
+									color="#FF5100"
+									className={clsx("w-auto", "h-auto")}
 								/>
 								<p
 									className={clsx(
@@ -621,7 +630,8 @@ export default function Home() {
 									width={36}
 									height={36}
 									src={"/svgs/growth.svg"}
-									className={clsx("text-[#FF5100]")}
+									color="#FF5100"
+									className={clsx("w-auto", "h-auto")}
 								/>
 								<p
 									className={clsx(
@@ -654,7 +664,8 @@ export default function Home() {
 									width={36}
 									height={36}
 									src={"/svgs/writer.svg"}
-									className={clsx("text-[#FF5100]")}
+									color="#FF5100"
+									className={clsx("w-auto", "h-auto")}
 								/>
 								<p
 									className={clsx(
@@ -687,7 +698,8 @@ export default function Home() {
 									width={36}
 									height={36}
 									src={"/svgs/rocket.svg"}
-									className={clsx("text-[#FF5100]")}
+									color="#FF5100"
+									className={clsx("w-auto", "h-auto")}
 								/>
 								<p
 									className={clsx(
@@ -707,7 +719,7 @@ export default function Home() {
 				<SectionReveal id="testemunhos">
 					<div
 						className={clsx(
-							"container",
+							"container-content-limit",
 							"relative",
 							"m-auto",
 							"mt-24",
@@ -853,7 +865,7 @@ export default function Home() {
 				<SectionReveal>
 					<div
 						className={clsx(
-							"container",
+							"container-content-limit",
 							"relative",
 							"m-auto",
 							"flex",
@@ -1051,7 +1063,7 @@ export default function Home() {
 				<SectionReveal id="sobre-nos">
 					<div
 						className={clsx(
-							"container",
+							"container-content-limit",
 							"relative",
 							"m-auto",
 							"flex",
@@ -1144,7 +1156,7 @@ export default function Home() {
 			<footer className={clsx("mt-24", "bg-[#FF5100]", "h-28")}>
 				<div
 					className={clsx(
-						"container",
+						"container-content-limit",
 						"m-auto",
 						"flex",
 						"flex-row",

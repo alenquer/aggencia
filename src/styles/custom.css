@@ -1,8 +1,8 @@
-.container {
+.container-content-limit {
 	width: min(1024px, 90%);
 }
 
-.scroll {
+.scroll-page {
 	box-shadow: 0 4px 16px -2px #eee;
 }
 

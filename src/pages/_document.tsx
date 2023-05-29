@@ -5,13 +5,21 @@ export default function Document() {
 	return (
 		<Html lang="en">
 			<Head>
-				<link
-					rel="stylesheet"
-					href="https://cdn.jsdelivr.net/npm/keen-slider@latest/keen-slider.min.css"
+				<Script
+					id="google-gtag"
+					src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GTAG}`}
+					strategy="afterInteractive"
 				/>
+				<Script id="google-analytics" strategy="afterInteractive">
+					{`
+                        window.dataLayer = window.dataLayer || [];
+                        function gtag(){window.dataLayer.push(arguments);}
+                        gtag('js', new Date());
+                        gtag('config', '${process.env.NEXT_PUBLIC_GTAG}');
+                    `}
+				</Script>
 			</Head>
 			<body>
-				<Script src="https://cdn.jsdelivr.net/npm/keen-slider@latest/keen-slider.js" />
 				<Main />
 				<NextScript />
 			</body>
