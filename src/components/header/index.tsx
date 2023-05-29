@@ -88,7 +88,7 @@ export const Header: React.FC = () => {
 				)}
 			>
 				<div className={clsx("flex", "items-center", "justify-between")}>
-					<a href="">
+					<a href="#">
 						<div
 							className={clsx(
 								"flex",
