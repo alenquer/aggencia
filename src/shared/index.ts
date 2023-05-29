@@ -1,3 +1,4 @@
+import { Hanken_Grotesk } from "next/font/google";
 import localFont from "next/font/local";
 
 export const productSans = localFont({
@@ -15,3 +16,5 @@ export const productSans = localFont({
 	],
 	variable: "--font-product-sans"
 });
+
+export const hankenGrotesk = Hanken_Grotesk({ subsets: ["latin"] });

@@ -2,20 +2,124 @@ import clsx from "clsx";
 import { useKeenSlider } from "keen-slider/react";
 import Head from "next/head";
 import Image from "next/image";
-import { BiEdit } from "react-icons/bi";
 import {
-	BsCodeSlash,
 	BsFacebook,
 	BsFillArrowLeftCircleFill,
 	BsFillArrowRightCircleFill,
-	BsInstagram,
-	BsMegaphone
+	BsInstagram
 } from "react-icons/bs";
-import { MdOutlinePersonPin, MdOutlineRocketLaunch } from "react-icons/md";
-import { TfiBarChart } from "react-icons/tfi";
+import { AnimatedCounter } from "~/components/counter";
+import { Header } from "~/components/header";
 import { SectionReveal } from "~/components/reveal";
-import { productSans } from "~/shared";
+import { hankenGrotesk, productSans } from "~/shared";
 import { feedbacks } from "~/utils/feedbacks";
+
+const MethodCard: React.FC<{
+	imageSrc: string;
+	imageAlt: string;
+	title: string;
+	description: string;
+	floatLabel: string;
+	side?: "left" | "right";
+}> = ({
+	description,
+	imageAlt,
+	imageSrc,
+	floatLabel,
+	title,
+	side = "left"
+}) => {
+	return (
+		<div
+			className={clsx(
+				"min-h-[12rem]",
+				"w-full",
+				"lg:w-2/3",
+				"bg-white",
+				"relative",
+				"rounded-lg",
+				"shadow-[4px_4px_48px_4px_rgba(0,0,0,0.1)]",
+				"items-center",
+				"flex",
+				"px-4",
+				"py-8",
+				"gap-2",
+				"sm:px-8",
+				"sm:py-4",
+				"sm:gap-2",
+				"flex-col",
+				side === "left" ? "place-self-start" : "place-self-end",
+				side === "right" ? "sm:flex-row-reverse" : "sm:flex-row"
+			)}
+		>
+			<div
+				className={clsx(
+					"relative",
+					"min-h-[6rem]",
+					"min-w-[6rem]",
+					"sm:min-h-[9rem]",
+					"sm:min-w-[9rem]"
+				)}
+			>
+				<Image fill src={imageSrc} alt={imageAlt} />
+			</div>
+			<div className={clsx("flex", "flex-col", "gap-2")}>
+				<p
+					className={clsx(
+						productSans.className,
+						"font-bold",
+						"text-lg",
+						"xxs:text-2xl",
+						"relative",
+						"pb-2",
+						"after:absolute",
+						"after:content-['']",
+						"after:rounded-xl",
+						"after:border-b-4",
+						"after:border-[#FF5100]",
+						"after:bottom-0",
+						"after:left-0",
+						"after:w-16"
+					)}
+				>
+					{title}
+				</p>
+				<p
+					className={clsx(
+						hankenGrotesk.className,
+						"text-xs",
+						"opacity-80",
+						"xxs:text-sm"
+					)}
+				>
+					{description}
+				</p>
+			</div>
+			<div
+				className={clsx(
+					"absolute",
+					"md:-top-8",
+					"-top-4",
+					side === "right" ? "md:-right-8" : "md:-left-8",
+					side === "right" ? "-right-4" : "-left-4"
+				)}
+			>
+				<p
+					className={clsx(
+						productSans.className,
+						"font-bold",
+						"text-5xl",
+						"md:text-7xl",
+						"text-[#FF5100]",
+						"opacity-50"
+					)}
+				>
+					{floatLabel}
+				</p>
+			</div>
+		</div>
+	);
+};
 
 const ClientSlide: React.FC<{
 	name: string;
@@ -40,21 +144,31 @@ const ClientSlide: React.FC<{
 		>
 			<div className={clsx("flex", "flex-row", "items-center", "gap-4")}>
 				<div
-					className={clsx("w-16", "h-16", "rounded-full", "bg-slate-200")}
-				/>
+					className={clsx(
+						"relative",
+						"w-16",
+						"h-16",
+						"rounded-full",
+						"bg-[#eee]",
+						"overflow-hidden"
+					)}
+				>
+					<Image fill src={avatar} alt={name} />
+				</div>
 				<div>
 					<strong
 						className={clsx(
-							productSans.className,
+							hankenGrotesk.className,
 							"group-hover:text-white",
-							"text-lg"
+							"text-lg",
+							"text-[#FF5100]"
 						)}
 					>
 						{name}
 					</strong>
 					<p
 						className={clsx(
-							productSans.className,
+							hankenGrotesk.className,
 							"group-hover:text-white",
 							"text-sm"
 						)}
@@ -65,9 +179,10 @@ const ClientSlide: React.FC<{
 			</div>
 			<p
 				className={clsx(
-					productSans.className,
+					hankenGrotesk.className,
 					"text-sm",
 					"line-clamp-5",
+					"opacity-80",
 					"group-hover:text-white"
 				)}
 			>
@@ -78,9 +193,26 @@ const ClientSlide: React.FC<{
 };
 
 export default function Home() {
-	const [ref] = useKeenSlider<HTMLUListElement>({
-		slides: { perView: 3, spacing: 16 }
+	const [ref, instanceRef] = useKeenSlider<HTMLUListElement>({
+		breakpoints: {
+			"(min-width: 720px)": {
+				slides: { perView: 2, spacing: 16 }
+			},
+			"(min-width: 1024px)": {
+				slides: { perView: 3, spacing: 16 }
+			}
+		},
+		loop: true,
+		slides: { perView: 1, spacing: 16 }
 	});
+
+	function nextPage() {
+		return instanceRef.current?.next();
+	}
+
+	function prevPage() {
+		return instanceRef.current?.prev();
+	}
 
 	return (
 		<>
@@ -100,108 +232,9 @@ export default function Home() {
 				/>
 			</Head>
 			<header>
-				<nav className={clsx("p-4", "bg-white")}>
-					<div
-						className={clsx(
-							"container",
-							"flex",
-							"flex-row",
-							"justify-between",
-							"gap-8",
-							"m-auto"
-						)}
-					>
-						<div
-							className={clsx(
-								"flex",
-								"flex-row",
-								"items-center",
-								"gap-4"
-							)}
-						>
-							<div className={clsx("relative", "w-9", "h-9")}>
-								<Image
-									priority
-									fill
-									src="/svgs/logo.svg"
-									alt="aggencia-logo"
-								/>
-							</div>
-							<h2
-								className={clsx(
-									productSans.className,
-									"font-bold",
-									"text-xl"
-								)}
-							>
-								Aggencia
-							</h2>
-						</div>
-						<div
-							className={clsx(
-								"flex",
-								"flex-row",
-								"items-center",
-								"gap-8"
-							)}
-						>
-							<a href="#metodos">
-								<p
-									className={clsx(
-										productSans.className,
-										"font-bold",
-										"text-xl",
-										"hover:cursor-pointer",
-										"hover:text-[#FF5100]"
-									)}
-								>
-									Método
-								</p>
-							</a>
-							<a href="#especialidades">
-								<p
-									className={clsx(
-										productSans.className,
-										"font-bold",
-										"text-xl",
-										"hover:cursor-pointer",
-										"hover:text-[#FF5100]"
-									)}
-								>
-									Especialidades
-								</p>
-							</a>
-							<a href="#testemunhos">
-								<p
-									className={clsx(
-										productSans.className,
-										"font-bold",
-										"text-xl",
-										"hover:cursor-pointer",
-										"hover:text-[#FF5100]"
-									)}
-								>
-									Testemunhos
-								</p>
-							</a>
-							<a href="#sobre-nos">
-								<p
-									className={clsx(
-										productSans.className,
-										"font-bold",
-										"text-xl",
-										"hover:cursor-pointer",
-										"hover:text-[#FF5100]"
-									)}
-								>
-									Sobre Nós
-								</p>
-							</a>
-						</div>
-					</div>
-				</nav>
+				<Header />
 			</header>
-			<main>
+			<main className={clsx("mt-20")}>
 				<section>
 					<div
 						className={clsx(
@@ -212,25 +245,34 @@ export default function Home() {
 							"items-center",
 							"h-[24rem]",
 							"relative",
-							"m-auto"
+							"m-auto",
+							"mt-4",
+							"lg:mt-0"
 						)}
 					>
 						<div
 							className={clsx(
 								"absolute",
 								"top-0",
-								"h-[36rem]",
+								"h-[32rem]",
+								"lg:h-[36rem]",
 								"flex",
-								"flex-row",
+								"flex-col",
+								"lg:flex-row",
 								"items-center",
-								"gap-4"
+								"gap-8",
+								"lg:gap-4",
+								"w-full"
 							)}
 						>
 							<div className={clsx("flex", "flex-col", "gap-6")}>
 								<h1
 									className={clsx(
 										productSans.className,
-										"text-5xl",
+										"text-4xl",
+										"md:text-5xl",
+										"text-center",
+										"lg:text-left",
 										"font-bold",
 										"text-black"
 									)}
@@ -240,34 +282,52 @@ export default function Home() {
 										todos os dias.
 									</span>
 								</h1>
-								<h2>
+								<h2
+									className={clsx(
+										hankenGrotesk.className,
+										"text-sm",
+										"text-center",
+										"lg:text-left",
+										"md:text-lg",
+										"opacity-80"
+									)}
+								>
 									Tenha uma estratégia de marketing específica para o
 									seu negócio criado por especialistas em Google Ads.
 								</h2>
-								<button
-									className={clsx(
-										productSans.className,
-										"font-bold",
-										"text-white",
-										"bg-[#FF5100]",
-										"rounded-xl",
-										"text-lg",
-										"h-16",
-										"w-64",
-										"shadow-[4px_4px_48px_4px_rgba(0,0,0,0.1)]",
-										"hover:cursor-pointer",
-										"hover:opacity-40"
-									)}
-								>
-									Entre em Contato
-								</button>
+								<a href={process.env["NEXT_PUBLIC_WHATSAPP"]}>
+									<button
+										className={clsx(
+											productSans.className,
+											"font-bold",
+											"text-white",
+											"bg-[#FF5100]",
+											"rounded-xl",
+											"text-lg",
+											"h-16",
+											"w-full",
+											"lg:w-64",
+											"shadow-[4px_4px_48px_4px_rgba(0,0,0,0.1)]",
+											"hover:cursor-pointer",
+											"hover:opacity-40"
+										)}
+									>
+										Entre em Contato
+									</button>
+								</a>
 							</div>
 							<aside
 								className={clsx(
-									"min-w-[36rem]",
-									"h-[36rem]",
+									"lg:min-w-[36rem]",
+									"lg:max-w-[36rem]",
+									"min-h-[70vw]",
+									"max-h-[70vw]",
+									"min-w-full",
+									"lg:min-h-[36rem]",
+									"lg:max-h-[36rem]",
 									"z-10",
-									"relative"
+									"relative",
+									"overflow-hidden"
 								)}
 							>
 								<Image
@@ -283,7 +343,14 @@ export default function Home() {
 						</div>
 					</div>
 				</section>
-				<div className={clsx("w-full", "h-[450px]", "relative")}>
+				<div
+					className={clsx(
+						"w-full",
+						"lg:h-[450px]",
+						"h-[70vw]",
+						"relative"
+					)}
+				>
 					<Image
 						fill
 						priority
@@ -319,283 +386,63 @@ export default function Home() {
 							Conheça nosso método
 						</h2>
 						<div className={clsx("flex", "flex-col", "mt-16", "gap-8")}>
-							<div
-								className={clsx(
-									"h-48",
-									"w-2/3",
-									"bg-white",
-									"relative",
-									"place-self-start",
-									"rounded-lg",
-									"shadow-[4px_4px_48px_4px_rgba(0,0,0,0.1)]",
-									"items-center",
-									"flex",
-									"flex-row",
-									"px-4",
-									"gap-4",
-									"animate-fly"
-								)}
-							>
-								<div
-									className={clsx("relative", "h-36", "min-w-[9rem]")}
-								>
-									<Image
-										fill
-										src="/svgs/testimonial.svg"
-										alt="testimonial"
-									/>
-								</div>
-								<div className={clsx("flex", "flex-col", "gap-2")}>
-									<p
-										className={clsx(
-											productSans.className,
-											"font-bold",
-											"text-3xl",
-											"relative",
-											"pb-2",
-											"after:absolute",
-											"after:content-['']",
-											"after:rounded-xl",
-											"after:border-b-4",
-											"after:border-[#FF5100]",
-											"after:bottom-0",
-											"after:left-0",
-											"after:w-16"
-										)}
-									>
-										Objetivo
-									</p>
-									<p className={clsx(productSans.className)}>
-										Para ajudar a sua empresa a crescer, primeiro
+							<MethodCard
+								imageAlt="objetivos"
+								imageSrc="/svgs/testimonial.svg"
+								title="Objetivo"
+								floatLabel="01"
+								description="Para ajudar a sua empresa a crescer, primeiro
 										buscamos entender o produto que ela vende, os
 										objetivos e as limitações. Com isso em mente,
-										partimos para a parte 2.
-									</p>
-								</div>
-								<div className={clsx("absolute", "-top-8", "-left-8")}>
-									<p
-										className={clsx(
-											productSans.className,
-											"font-bold",
-											"text-7xl",
-											"text-[#FF5100]",
-											"opacity-50"
-										)}
-									>
-										01
-									</p>
-								</div>
-							</div>
-							<div
-								className={clsx(
-									"h-48",
-									"w-2/3",
-									"bg-white",
-									"relative",
-									"place-self-end",
-									"rounded-lg",
-									"shadow-[4px_4px_48px_4px_rgba(0,0,0,0.1)]",
-									"items-center",
-									"flex",
-									"flex-row",
-									"px-4",
-									"gap-4",
-									"animate-fly"
-								)}
-							>
-								<div className={clsx("flex", "flex-col", "gap-2")}>
-									<p
-										className={clsx(
-											productSans.className,
-											"font-bold",
-											"text-3xl",
-											"relative",
-											"pb-2",
-											"after:absolute",
-											"after:content-['']",
-											"after:rounded-xl",
-											"after:border-b-4",
-											"after:border-[#FF5100]",
-											"after:bottom-0",
-											"after:left-0",
-											"after:w-16"
-										)}
-									>
-										Concorrentes
-									</p>
-									<p className={clsx(productSans.className)}>
-										Todo mundo quer ser maior que os concorrentes.
+										partimos para a parte 2."
+							/>
+							<MethodCard
+								imageAlt="concorrentes"
+								imageSrc="/svgs/concorrentes.svg"
+								title="Concorrentes"
+								floatLabel="02"
+								side="right"
+								description="Todo mundo quer ser maior que os concorrentes.
 										Para alcançar isso, os estudamos para ver o que
 										eles fazem que dá certo e o que da errado. Assim,
 										economizamos seu dinheiro, tempo e esforço para
-										alcançar anúncios vencedores.
-									</p>
-								</div>
-								<div
-									className={clsx("relative", "h-36", "min-w-[9rem]")}
-								>
-									<Image
-										fill
-										src="/svgs/concorrentes.svg"
-										alt="concorrentes"
-									/>
-								</div>
-								<div className={clsx("absolute", "-top-8", "-right-8")}>
-									<p
-										className={clsx(
-											productSans.className,
-											"font-bold",
-											"text-7xl",
-											"text-[#FF5100]",
-											"opacity-50"
-										)}
-									>
-										02
-									</p>
-								</div>
-							</div>
-							<div
-								className={clsx(
-									"h-48",
-									"w-2/3",
-									"bg-white",
-									"relative",
-									"place-self-start",
-									"rounded-lg",
-									"shadow-[4px_4px_48px_4px_rgba(0,0,0,0.1)]",
-									"items-center",
-									"flex",
-									"flex-row",
-									"px-4",
-									"gap-4",
-									"animate-fly"
-								)}
-							>
-								<div
-									className={clsx("relative", "h-36", "min-w-[9rem]")}
-								>
-									<Image
-										fill
-										src="/svgs/estrategia.svg"
-										alt="estratégia"
-									/>
-								</div>
-								<div className={clsx("flex", "flex-col", "gap-2")}>
-									<p
-										className={clsx(
-											productSans.className,
-											"font-bold",
-											"text-3xl",
-											"relative",
-											"pb-2",
-											"after:absolute",
-											"after:content-['']",
-											"after:rounded-xl",
-											"after:border-b-4",
-											"after:border-[#FF5100]",
-											"after:bottom-0",
-											"after:left-0",
-											"after:w-16"
-										)}
-									>
-										Estratégia
-									</p>
-									<p className={clsx(productSans.className)}>
-										Entendendo como seus concorrentes trabalham,
+										alcançar anúncios vencedores."
+							/>
+							<MethodCard
+								imageAlt="estratégia"
+								imageSrc="/svgs/estrategia.svg"
+								title="Estratégia"
+								floatLabel="03"
+								description="Entendendo como seus concorrentes trabalham,
 										partimos para a montagem de uma estratégia
 										especifica para o seu negócio, buscando sempre
-										gastar o menos possível por cada venda.
-									</p>
-								</div>
-								<div className={clsx("absolute", "-top-8", "-left-8")}>
-									<p
-										className={clsx(
-											productSans.className,
-											"font-bold",
-											"text-7xl",
-											"text-[#FF5100]",
-											"opacity-50"
-										)}
-									>
-										03
-									</p>
-								</div>
-							</div>
-							<div
-								className={clsx(
-									"h-48",
-									"w-2/3",
-									"bg-white",
-									"relative",
-									"place-self-end",
-									"rounded-lg",
-									"shadow-[4px_4px_48px_4px_rgba(0,0,0,0.1)]",
-									"items-center",
-									"flex",
-									"flex-row",
-									"px-4",
-									"gap-4",
-									"animate-fly"
-								)}
-							>
-								<div className={clsx("flex", "flex-col", "gap-2")}>
-									<p
-										className={clsx(
-											productSans.className,
-											"font-bold",
-											"text-3xl",
-											"relative",
-											"pb-2",
-											"after:absolute",
-											"after:content-['']",
-											"after:rounded-xl",
-											"after:border-b-4",
-											"after:border-[#FF5100]",
-											"after:bottom-0",
-											"after:left-0",
-											"after:w-16"
-										)}
-									>
-										Lançamento
-									</p>
-									<p className={clsx(productSans.className)}>
-										Após todos os passos anteriores, partimos para a
+										gastar o menos possível por cada venda."
+							/>
+							<MethodCard
+								imageAlt="lançamento"
+								imageSrc="/svgs/lancamento.svg"
+								title="Lançamento"
+								floatLabel="04"
+								side="right"
+								description="Após todos os passos anteriores, partimos para a
 										ação. Lançamos os seus anúncios seguindo o
 										planejamento a risca para obtermos o melhor
-										resultado possível para a sua empresa.
-									</p>
-								</div>
-								<div
-									className={clsx("relative", "h-36", "min-w-[9rem]")}
-								>
-									<Image
-										fill
-										src="/svgs/lancamento.svg"
-										alt="lançamento"
-									/>
-								</div>
-								<div className={clsx("absolute", "-top-8", "-right-8")}>
-									<p
-										className={clsx(
-											productSans.className,
-											"font-bold",
-											"text-7xl",
-											"text-[#FF5100]",
-											"opacity-50"
-										)}
-									>
-										04
-									</p>
-								</div>
-							</div>
+										resultado possível para a sua empresa."
+							/>
 						</div>
 					</div>
 				</SectionReveal>
 				<SectionReveal id="especialidades">
 					<div
-						className={clsx("container", "relative", "mt-36", "m-auto")}
+						className={clsx(
+							"container",
+							"relative",
+							"mt-24",
+							"lg:mt-36",
+							"m-auto"
+						)}
 					>
-						<div className={clsx("especialidades-grid", "h-[24rem]")}>
+						<div className={clsx("especialidades-grid", "lg:h-[24rem]")}>
 							<div
 								className={clsx(
 									"[grid-area:a]",
@@ -606,20 +453,24 @@ export default function Home() {
 									"items-center",
 									"justify-center",
 									"gap-4",
-									"p-8"
+									"p-8",
+									"h-48"
 								)}
 							>
-								<BsMegaphone
-									size={36}
-									color="#FF5100"
-									className={clsx("rotate-[-24deg]")}
+								<Image
+									alt="promoção"
+									width={36}
+									height={36}
+									src={"/svgs/promotion.svg"}
+									className={clsx("text-[#FF5100]")}
 								/>
 								<p
 									className={clsx(
-										productSans.className,
+										hankenGrotesk.className,
 										"text-lg",
 										"text-center",
-										"text-black"
+										"text-black",
+										"opacity-80"
 									)}
 								>
 									Campanhas para Google Ads
@@ -635,16 +486,24 @@ export default function Home() {
 									"items-center",
 									"justify-center",
 									"gap-4",
-									"p-8"
+									"p-8",
+									"h-48"
 								)}
 							>
-								<BsCodeSlash size={36} color="#FF5100" />
+								<Image
+									alt="desenvolvimento de sites"
+									width={36}
+									height={36}
+									src={"/svgs/code.svg"}
+									className={clsx("text-[#FF5100]")}
+								/>
 								<p
 									className={clsx(
-										productSans.className,
+										hankenGrotesk.className,
 										"text-lg",
 										"text-center",
-										"text-black"
+										"text-black",
+										"opacity-80"
 									)}
 								>
 									Desenvolvimento e Design de Sites
@@ -653,7 +512,6 @@ export default function Home() {
 							<div
 								className={clsx(
 									"[grid-area:c]",
-									//"bg-[#F8F9FF]",
 									"rounded-xl",
 									"flex",
 									"flex-col",
@@ -678,7 +536,7 @@ export default function Home() {
 										"after:border-[#FF5100]",
 										"after:bottom-0",
 										"after:left-[50%]",
-										"after:-ml-[50px]",
+										"after:-translate-x-[50%]",
 										"after:w-24",
 										"after:m-auto"
 									)}
@@ -687,10 +545,11 @@ export default function Home() {
 								</h2>
 								<p
 									className={clsx(
-										productSans.className,
-										"text-slate-600",
+										hankenGrotesk.className,
+										"text-black",
 										"text-center",
 										"text-lg",
+										"opacity-80",
 										"mt-2"
 									)}
 								>
@@ -709,16 +568,24 @@ export default function Home() {
 									"items-center",
 									"justify-center",
 									"gap-4",
-									"p-8"
+									"p-8",
+									"h-48"
 								)}
 							>
-								<BiEdit size={36} color="#FF5100" />
+								<Image
+									alt="elaboração de copys"
+									width={36}
+									height={36}
+									src={"/svgs/copy.svg"}
+									className={clsx("text-[#FF5100]")}
+								/>
 								<p
 									className={clsx(
-										productSans.className,
+										hankenGrotesk.className,
 										"text-lg",
 										"text-center",
-										"text-black"
+										"text-black",
+										"opacity-80"
 									)}
 								>
 									Elaboração de Copys
@@ -734,16 +601,24 @@ export default function Home() {
 									"items-center",
 									"justify-center",
 									"gap-4",
-									"p-8"
+									"p-8",
+									"h-48"
 								)}
 							>
-								<TfiBarChart size={36} color="#FF5100" />
+								<Image
+									alt="crescimento de negócio"
+									width={36}
+									height={36}
+									src={"/svgs/growth.svg"}
+									className={clsx("text-[#FF5100]")}
+								/>
 								<p
 									className={clsx(
-										productSans.className,
+										hankenGrotesk.className,
 										"text-lg",
 										"text-center",
-										"text-black"
+										"text-black",
+										"opacity-80"
 									)}
 								>
 									Otimização de Campanhas
@@ -759,16 +634,24 @@ export default function Home() {
 									"items-center",
 									"justify-center",
 									"gap-4",
-									"p-8"
+									"p-8",
+									"h-48"
 								)}
 							>
-								<MdOutlinePersonPin size={36} color="#FF5100" />
+								<Image
+									alt="estudo de persona"
+									width={36}
+									height={36}
+									src={"/svgs/writer.svg"}
+									className={clsx("text-[#FF5100]")}
+								/>
 								<p
 									className={clsx(
-										productSans.className,
+										hankenGrotesk.className,
 										"text-lg",
 										"text-center",
-										"text-black"
+										"text-black",
+										"opacity-80"
 									)}
 								>
 									Estudo de Persona e Concorrentes
@@ -784,16 +667,24 @@ export default function Home() {
 									"items-center",
 									"justify-center",
 									"gap-4",
-									"p-8"
+									"p-8",
+									"h-48"
 								)}
 							>
-								<MdOutlineRocketLaunch size={36} color="#FF5100" />
+								<Image
+									alt="alavancar vendas"
+									width={36}
+									height={36}
+									src={"/svgs/rocket.svg"}
+									className={clsx("text-[#FF5100]")}
+								/>
 								<p
 									className={clsx(
-										productSans.className,
+										hankenGrotesk.className,
 										"text-lg",
 										"text-center",
-										"text-black"
+										"text-black",
+										"opacity-80"
 									)}
 								>
 									Alavancagem de Vendas
@@ -808,7 +699,8 @@ export default function Home() {
 							"container",
 							"relative",
 							"m-auto",
-							"mt-36",
+							"mt-24",
+							"lg:mt-36",
 							"flex",
 							"flex-col",
 							"gap-8"
@@ -818,7 +710,8 @@ export default function Home() {
 							className={clsx(
 								"flex",
 								"flex-row",
-								"justify-between",
+								"lg:justify-between",
+								"justify-center",
 								"items-center",
 								"gap-8"
 							)}
@@ -831,6 +724,8 @@ export default function Home() {
 										"text-black",
 										"font-bold",
 										"text-4xl",
+										"text-center",
+										"lg:text-left",
 										"pb-4",
 										"after:absolute",
 										"after:content-['']",
@@ -838,7 +733,10 @@ export default function Home() {
 										"after:border-b-4",
 										"after:border-[#FF5100]",
 										"after:bottom-0",
-										"after:left-[32%]",
+										"lg:after:left-[32%]",
+										"after:left-[50%]",
+										"after:-translate-x-[50%]",
+										"lg:after:-translate-x-[0]",
 										"after:w-24",
 										"after:m-auto"
 									)}
@@ -847,8 +745,11 @@ export default function Home() {
 								</h2>
 								<p
 									className={clsx(
-										productSans.className,
+										hankenGrotesk.className,
 										"text-lg",
+										"text-center",
+										"lg:text-left",
+										"opacity-80",
 										"mt-2"
 									)}
 								>
@@ -859,13 +760,15 @@ export default function Home() {
 							</div>
 							<div
 								className={clsx(
-									"flex",
+									"lg:flex",
 									"flex-row",
 									"items-center",
-									"gap-4"
+									"gap-4",
+									"hidden"
 								)}
 							>
 								<BsFillArrowLeftCircleFill
+									onClick={prevPage}
 									size={48}
 									className={clsx(
 										"text-[#ccc]",
@@ -874,6 +777,7 @@ export default function Home() {
 									)}
 								/>
 								<BsFillArrowRightCircleFill
+									onClick={nextPage}
 									size={48}
 									className={clsx(
 										"text-[#ccc]",
@@ -904,6 +808,35 @@ export default function Home() {
 								);
 							})}
 						</ul>
+						<div
+							className={clsx(
+								"flex",
+								"flex-row",
+								"items-center",
+								"gap-4",
+								"lg:hidden",
+								"justify-center"
+							)}
+						>
+							<BsFillArrowLeftCircleFill
+								onClick={prevPage}
+								size={48}
+								className={clsx(
+									"text-[#ccc]",
+									"hover:text-[#FF5100]",
+									"hover:cursor-pointer"
+								)}
+							/>
+							<BsFillArrowRightCircleFill
+								onClick={nextPage}
+								size={48}
+								className={clsx(
+									"text-[#ccc]",
+									"hover:text-[#FF5100]",
+									"hover:cursor-pointer"
+								)}
+							/>
+						</div>
 					</div>
 				</SectionReveal>
 				<SectionReveal>
@@ -913,10 +846,16 @@ export default function Home() {
 							"relative",
 							"m-auto",
 							"flex",
-							"flex-row",
+							"flex-col",
+							"lg:flex-row",
 							"items-center",
 							"justify-between",
-							"mt-24"
+							"mt-24",
+							"lg:mt-36",
+							"text-center",
+							"lg:text-left",
+							"gap-8",
+							"lg:gap-4"
 						)}
 					>
 						<div className={clsx("conquests-grid")}>
@@ -928,7 +867,6 @@ export default function Home() {
 										"text-black",
 										"font-bold",
 										"text-4xl",
-										"text-left",
 										"pb-4",
 										"after:absolute",
 										"after:content-['']",
@@ -936,7 +874,10 @@ export default function Home() {
 										"after:border-b-4",
 										"after:border-[#FF5100]",
 										"after:bottom-0",
-										"after:left-[24%]",
+										"after:left-[50%]",
+										"after:-translate-x-[50%]",
+										"lg:after:-translate-x-[0]",
+										"lg:after:left-[24%]",
 										"after:w-16",
 										"after:m-auto"
 									)}
@@ -949,24 +890,29 @@ export default function Home() {
 									"flex",
 									"flex-col",
 									"gap-1",
-									"[grid-area:a]"
+									"[grid-area:a]",
+									"whitespace-nowrap"
 								)}
 							>
-								<p
+								<AnimatedCounter
+									from={0}
+									to={100}
 									className={clsx(
 										productSans.className,
 										"font-bold",
 										"text-3xl",
-										"text-[#FF5100]"
+										"text-[#FF5100]",
+										"before:content-['R$']",
+										"before:pr-2",
+										"after:content-['+']"
 									)}
-								>
-									R$ 100K+
-								</p>
+								/>
 								<p
 									className={clsx(
 										productSans.className,
 										"text-lg",
-										"text-black"
+										"text-black",
+										"opacity-80"
 									)}
 								>
 									Gerenciados em anúncios
@@ -977,24 +923,29 @@ export default function Home() {
 									"flex",
 									"flex-col",
 									"gap-1",
-									"[grid-area:b]"
+									"[grid-area:b]",
+									"mt-2",
+									"lg:mt-0",
+									"whitespace-nowrap"
 								)}
 							>
-								<p
+								<AnimatedCounter
+									from={0}
+									to={4000}
 									className={clsx(
 										productSans.className,
 										"font-bold",
 										"text-3xl",
-										"text-[#FF5100]"
+										"text-[#FF5100]",
+										"after:content-['+']"
 									)}
-								>
-									4.000+
-								</p>
+								/>
 								<p
 									className={clsx(
 										productSans.className,
 										"text-lg",
-										"text-black"
+										"text-black",
+										"opacity-80"
 									)}
 								>
 									Leads Gerados
@@ -1005,24 +956,29 @@ export default function Home() {
 									"flex",
 									"flex-col",
 									"gap-1",
-									"[grid-area:c]"
+									"[grid-area:c]",
+									"mt-2",
+									"lg:mt-0",
+									"whitespace-nowrap"
 								)}
 							>
-								<p
+								<AnimatedCounter
+									from={0}
+									to={24}
 									className={clsx(
 										productSans.className,
 										"font-bold",
 										"text-3xl",
-										"text-[#FF5100]"
+										"text-[#FF5100]",
+										"after:content-['+']"
 									)}
-								>
-									24+
-								</p>
+								/>
 								<p
 									className={clsx(
 										productSans.className,
 										"text-lg",
-										"text-black"
+										"text-black",
+										"opacity-80"
 									)}
 								>
 									Sites que VENDEM criados
@@ -1033,24 +989,29 @@ export default function Home() {
 									"flex",
 									"flex-col",
 									"gap-1",
-									"[grid-area:d]"
+									"[grid-area:d]",
+									"mt-2",
+									"lg:mt-0",
+									"whitespace-nowrap"
 								)}
 							>
-								<p
+								<AnimatedCounter
+									from={0}
+									to={16}
 									className={clsx(
 										productSans.className,
 										"font-bold",
 										"text-3xl",
-										"text-[#FF5100]"
+										"text-[#FF5100]",
+										"after:content-['+']"
 									)}
-								>
-									16+
-								</p>
+								/>
 								<p
 									className={clsx(
 										productSans.className,
 										"text-lg",
-										"text-black"
+										"text-black",
+										"opacity-80"
 									)}
 								>
 									Nichos Atendidos
@@ -1058,7 +1019,13 @@ export default function Home() {
 							</div>
 						</div>
 						<aside
-							className={clsx("min-w-[36rem]", "h-[36rem]", "relative")}
+							className={clsx(
+								"min-w-full",
+								"h-[70vw]",
+								"lg:min-w-[32rem]",
+								"lg:h-[36rem]",
+								"relative"
+							)}
 						>
 							<Image
 								fill
@@ -1078,15 +1045,24 @@ export default function Home() {
 							"relative",
 							"m-auto",
 							"flex",
-							"flex-row",
+							"flex-col-reverse",
+							"lg:flex-row",
 							"items-center",
 							"justify-between",
 							"mt-24",
-							"gap-8"
+							"gap-8",
+							"text-center",
+							"lg:text-left"
 						)}
 					>
 						<aside
-							className={clsx("min-w-[36rem]", "h-[36rem]", "relative")}
+							className={clsx(
+								"min-w-full",
+								"h-[70vw]",
+								"lg:min-w-[32rem]",
+								"lg:h-[36rem]",
+								"relative"
+							)}
 						>
 							<Image
 								fill
@@ -1097,7 +1073,7 @@ export default function Home() {
 								blurDataURL={"/svgs/why.svg"}
 							/>
 						</aside>
-						<div className={clsx("flex", "flex-col", "w-[36rem]")}>
+						<div className={clsx("flex", "flex-col")}>
 							<h2
 								className={clsx(
 									productSans.className,
@@ -1105,7 +1081,6 @@ export default function Home() {
 									"text-black",
 									"font-bold",
 									"text-4xl",
-									"text-left",
 									"pb-4",
 									"after:absolute",
 									"after:content-['']",
@@ -1113,7 +1088,10 @@ export default function Home() {
 									"after:border-b-4",
 									"after:border-[#FF5100]",
 									"after:bottom-0",
-									"after:left-[32%]",
+									"lg:after:left-[32%]",
+									"after:left-[50%]",
+									"after:-translate-x-[50%]",
+									"lg:after:-translate-x-[0]",
 									"after:w-24",
 									"after:m-auto"
 								)}
@@ -1122,10 +1100,11 @@ export default function Home() {
 							</h2>
 							<p
 								className={clsx(
-									productSans.className,
+									hankenGrotesk.className,
 									"text-lg",
-									"mt-2",
-									"text-black"
+									"mt-4",
+									"text-black",
+									"opacity-80"
 								)}
 							>
 								<span className={clsx("inline-block")}>
@@ -1167,7 +1146,16 @@ export default function Home() {
 					)}
 				>
 					<div
-						className={clsx("flex", "flex-col", "gap-2", "items-center")}
+						className={clsx(
+							"flex",
+							"flex-row",
+							"lg:flex-col",
+							"gap-2",
+							"items-center",
+							"justify-between",
+							"w-full",
+							"lg:w-auto"
+						)}
 					>
 						<h2
 							className={clsx(
@@ -1191,58 +1179,80 @@ export default function Home() {
 							<BsInstagram size={28} color="white" />
 						</div>
 					</div>
-					<div
-						className={clsx("flex", "flex-row", "items-center", "gap-8")}
+					<ul
+						className={clsx(
+							"hidden",
+							"lg:flex",
+							"flex-row",
+							"items-center",
+							"gap-8"
+						)}
 					>
-						<p
-							className={clsx(
-								productSans.className,
-								"font-bold",
-								"text-xl",
-								"text-white",
-								"hover:cursor-pointer",
-								"hover:opacity-40"
-							)}
-						>
-							Método
-						</p>
-						<p
-							className={clsx(
-								productSans.className,
-								"font-bold",
-								"text-xl",
-								"text-white",
-								"hover:cursor-pointer",
-								"hover:opacity-40"
-							)}
-						>
-							Especialidades
-						</p>
-						<p
-							className={clsx(
-								productSans.className,
-								"font-bold",
-								"text-xl",
-								"text-white",
-								"hover:cursor-pointer",
-								"hover:opacity-40"
-							)}
-						>
-							Testemunhos
-						</p>
-						<p
-							className={clsx(
-								productSans.className,
-								"font-bold",
-								"text-xl",
-								"text-white",
-								"hover:cursor-pointer",
-								"hover:opacity-40"
-							)}
-						>
-							Sobre Nós
-						</p>
-					</div>
+						<a href="#metodos">
+							<li>
+								<p
+									className={clsx(
+										productSans.className,
+										"font-bold",
+										"text-xl",
+										"text-white",
+										"hover:cursor-pointer",
+										"hover:opacity-40"
+									)}
+								>
+									Método
+								</p>
+							</li>
+						</a>
+						<a href="#especialidades">
+							<li>
+								<p
+									className={clsx(
+										productSans.className,
+										"font-bold",
+										"text-xl",
+										"text-white",
+										"hover:cursor-pointer",
+										"hover:opacity-40"
+									)}
+								>
+									Especialidades
+								</p>
+							</li>
+						</a>
+						<a href="#testemunhos">
+							<li>
+								<p
+									className={clsx(
+										productSans.className,
+										"font-bold",
+										"text-xl",
+										"text-white",
+										"hover:cursor-pointer",
+										"hover:opacity-40"
+									)}
+								>
+									Testemunhos
+								</p>
+							</li>
+						</a>
+						<a href="#sobre-nos">
+							<li>
+								<p
+									className={clsx(
+										productSans.className,
+										"font-bold",
+										"text-xl",
+										"text-white",
+										"hover:cursor-pointer",
+										"hover:opacity-40"
+									)}
+								>
+									Sobre Nós
+								</p>
+							</li>
+						</a>
+					</ul>
 				</div>
 			</footer>
 		</>

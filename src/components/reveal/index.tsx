@@ -19,7 +19,7 @@ export const SectionReveal: React.FC<
 		if (isInView) {
 			controls.start("visible");
 		}
-	});
+	}, [controls, isInView]);
 
 	return (
 		<motion.section

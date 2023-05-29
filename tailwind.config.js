@@ -3,9 +3,12 @@ module.exports = {
 	content: ["./src/**/*.{js,ts,jsx,tsx}"],
 	theme: {
 		extend: {
+			screens: {
+				// => @media (min-width: 420px) { ... }
+				xxs: "420px"
+			},
 			colors: {
-				primary: "#00aca3",
-				secondary: "#009cc4",
+				primary: "#FF5100",
 				label: "#025290"
 			},
 			animation: {

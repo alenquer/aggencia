@@ -2,25 +2,65 @@
 	width: min(1024px, 90%);
 }
 
+.scroll {
+	box-shadow: 0 4px 16px -2px #eee;
+}
+
 .especialidades-grid {
 	display: grid;
 	row-gap: 1rem;
 	column-gap: 1rem;
-	grid-template-columns: 1fr 1fr 1fr 1fr;
-	grid-template-rows: 1fr 1fr;
+	grid-template-columns: 100%;
 	grid-template-areas:
-		"a b c c"
-		"e f g h";
+		"c"
+		"a"
+		"b"
+		"e"
+		"f"
+		"g"
+		"h";
 }
 
 .conquests-grid {
 	display: grid;
 	row-gap: 2rem;
 	column-gap: 2rem;
-	grid-template-columns: 1fr 1fr;
-	grid-template-rows: 1fr 1fr;
+	grid-template-columns: 100%;
 	grid-template-areas:
-		"header header"
-		"a b"
-		"c d";
+		"header"
+		"a"
+		"b"
+		"c"
+		"d";
+}
+
+@media (min-width: 420px) {
+	.conquests-grid {
+		row-gap: 2rem;
+		grid-template-columns: 1fr 1fr;
+		grid-template-rows: 1fr 1fr;
+		grid-template-areas:
+			"header header"
+			"a b"
+			"c d";
+	}
+
+	.especialidades-grid {
+		grid-template-columns: 1fr 1fr;
+		grid-template-areas:
+			"c c"
+			"a b"
+			"e f"
+			"g h";
+	}
+}
+
+@media (min-width: 1024px) {
+	.especialidades-grid {
+		grid-template-columns: 1fr 1fr 1fr 1fr;
+		grid-template-rows: 1fr 1fr;
+		grid-template-areas:
+			"a b c c"
+			"e f g h";
+	}
 }
