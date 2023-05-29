@@ -16,9 +16,7 @@ export const SectionReveal: React.FC<
 	const controls = useAnimation();
 
 	useEffect(() => {
-		if (isInView) {
-			controls.start("visible");
-		}
+		if (isInView) controls.start("visible");
 	}, [controls, isInView]);
 
 	return (
