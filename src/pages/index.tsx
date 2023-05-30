@@ -223,6 +223,12 @@ export default function Home() {
 			event_callback: callback
 		});
 
+		//@ts-ignore
+		window.gtag("event", "conversion", {
+			send_to: process.env.NEXT_PUBLIC_GOOGLE_SNIPPET_DISPLAY,
+			event_callback: callback
+		});
+
 		return false;
 	}
 
