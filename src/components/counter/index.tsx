@@ -16,7 +16,7 @@ interface IProps extends HTMLMotionProps<"span"> {
 export function AnimatedCounter({ from, to, ...rest }: IProps) {
 	const ref = useRef<HTMLSpanElement>(null);
 
-	const inView = useInView(ref);
+	const inView = useInView(ref, { once: true });
 
 	const count = useMotionValue(from);
 

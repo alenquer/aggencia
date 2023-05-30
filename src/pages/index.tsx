@@ -210,6 +210,22 @@ export default function Home() {
 		return instanceRef.current?.prev();
 	}
 
+	function gtag_report_conversion(url: any) {
+		var callback = function () {
+			if (typeof url != "undefined") {
+				window.location = url;
+			}
+		};
+
+		//@ts-ignore
+		window.gtag("event", "conversion", {
+			send_to: process.env.NEXT_PUBLIC_GOOGLE_SNIPPET,
+			event_callback: callback
+		});
+
+		return false;
+	}
+
 	return (
 		<>
 			<Head>
@@ -308,6 +324,7 @@ export default function Home() {
 									rel="noopener noreferrer"
 								>
 									<button
+										onClick={gtag_report_conversion}
 										type="button"
 										className={clsx(
 											productSans.className,

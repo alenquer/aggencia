@@ -6,6 +6,11 @@ export default function Document() {
 		<Html lang="en">
 			<Head>
 				<Script
+					id="google-gtag-aw"
+					src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GTAG_AW}`}
+					strategy="afterInteractive"
+				/>
+				<Script
 					id="google-gtag"
 					src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GTAG}`}
 					strategy="afterInteractive"
@@ -16,6 +21,7 @@ export default function Document() {
                         function gtag(){window.dataLayer.push(arguments);}
                         gtag('js', new Date());
                         gtag('config', '${process.env.NEXT_PUBLIC_GTAG}');
+                        gtag('config', '${process.env.NEXT_PUBLIC_GTAG_AW}');
                     `}
 				</Script>
 			</Head>
